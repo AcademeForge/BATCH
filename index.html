@@ -355,106 +355,249 @@
       .batch-buy-btnaf { min-width: 138px; padding: 14px 16px; }
       .batch-arrowaf { width: 52px; height: 52px; }
     }
-    .af-toast-wrap {
+    /* ================================
+   AcademeForge Premium Toast UI
+================================ */
+
+.af-toast-area {
   position: fixed;
   left: 50%;
-  bottom: 22px;
+  bottom: calc(18px + env(safe-area-inset-bottom));
   transform: translateX(-50%);
-  z-index: 999999;
-  width: calc(100% - 28px);
-  max-width: 430px;
+  z-index: 9999999;
+  width: min(92vw, 440px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   pointer-events: none;
 }
 
 .af-toast {
+  position: relative;
+  overflow: hidden;
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 14px 15px;
-  border-radius: 18px;
-  background: rgba(15, 23, 42, 0.96);
-  color: #ffffff;
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.35);
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+  padding: 14px 14px 14px 13px;
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.94));
+  color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(14px);
-  opacity: 0;
-  transform: translateY(18px) scale(0.96);
-  animation: afToastIn 0.25s ease forwards;
+  box-shadow:
+    0 22px 55px rgba(15, 23, 42, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   pointer-events: auto;
+  transform: translateY(26px) scale(0.94);
+  opacity: 0;
+  animation: afToastEnter 0.34s cubic-bezier(.2,.9,.2,1) forwards;
+}
+
+.af-toast::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.16), transparent 36%),
+    radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.07), transparent 34%);
+  pointer-events: none;
+}
+
+.af-toast::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  overflow: hidden;
+}
+
+.af-toast-bar {
+  position: absolute;
+  left: 14px;
+  bottom: 0;
+  height: 3px;
+  width: calc(100% - 28px);
+  border-radius: 999px;
+  transform-origin: left;
+  animation: afToastBar 3s linear forwards;
 }
 
 .af-toast-icon {
-  width: 34px;
-  height: 34px;
-  flex: 0 0 34px;
-  border-radius: 12px;
+  position: relative;
+  z-index: 1;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  border-radius: 16px;
   display: grid;
   place-items: center;
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 950;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.20),
+    0 10px 22px rgba(0,0,0,0.18);
 }
 
-.af-toast-content {
+.af-toast-text {
+  position: relative;
+  z-index: 1;
   flex: 1;
   min-width: 0;
+  padding-right: 4px;
 }
 
 .af-toast-title {
   margin: 0;
-  font-size: 14px;
+  font-size: 14.5px;
+  line-height: 1.15;
   font-weight: 950;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
-.af-toast-msg {
-  margin: 4px 0 0;
+.af-toast-message {
+  margin: 5px 0 0;
+  color: rgba(255, 255, 255, 0.78);
   font-size: 13px;
   line-height: 1.45;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.82);
 }
 
 .af-toast-close {
+  position: relative;
+  z-index: 1;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
   border: 0;
-  background: transparent;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.08);
   color: rgba(255, 255, 255, 0.72);
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1;
   cursor: pointer;
-  padding: 0 2px;
+  transition: 0.18s ease;
 }
 
-.af-toast-success .af-toast-icon {
-  background: rgba(34, 197, 94, 0.18);
-  color: #86efac;
+.af-toast-close:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
 }
 
-.af-toast-error .af-toast-icon {
-  background: rgba(239, 68, 68, 0.18);
-  color: #fca5a5;
+/* Success */
+.af-toast.success .af-toast-icon {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #ffffff;
 }
 
-.af-toast-info .af-toast-icon {
-  background: rgba(59, 130, 246, 0.18);
-  color: #93c5fd;
+.af-toast.success .af-toast-bar {
+  background: linear-gradient(90deg, #22c55e, #86efac);
 }
 
-.af-toast-warning .af-toast-icon {
-  background: rgba(245, 158, 11, 0.18);
-  color: #fcd34d;
+/* Error */
+.af-toast.error .af-toast-icon {
+  background: linear-gradient(135deg, #e11d48, #fb7185);
+  color: #ffffff;
 }
 
-@keyframes afToastIn {
-  to {
+.af-toast.error .af-toast-bar {
+  background: linear-gradient(90deg, #fb7185, #fecdd3);
+}
+
+/* Warning */
+.af-toast.warning .af-toast-icon {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  color: #111827;
+}
+
+.af-toast.warning .af-toast-bar {
+  background: linear-gradient(90deg, #fbbf24, #fde68a);
+}
+
+/* Info */
+.af-toast.info .af-toast-icon {
+  background: linear-gradient(135deg, #2563eb, #60a5fa);
+  color: #ffffff;
+}
+
+.af-toast.info .af-toast-bar {
+  background: linear-gradient(90deg, #60a5fa, #bfdbfe);
+}
+
+.af-toast.hide {
+  animation: afToastExit 0.24s ease forwards;
+}
+
+@keyframes afToastEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(26px) scale(0.94);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.01);
+  }
+  100% {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
 }
 
-@keyframes afToastOut {
+@keyframes afToastExit {
   to {
     opacity: 0;
-    transform: translateY(18px) scale(0.96);
+    transform: translateY(22px) scale(0.96);
+  }
+}
+
+@keyframes afToastBar {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+@media (max-width: 520px) {
+  .af-toast-area {
+    width: calc(100vw - 24px);
+    bottom: calc(14px + env(safe-area-inset-bottom));
+  }
+
+  .af-toast {
+    border-radius: 20px;
+    padding: 13px;
+    gap: 11px;
+  }
+
+  .af-toast-icon {
+    width: 39px;
+    height: 39px;
+    flex-basis: 39px;
+    border-radius: 15px;
+    font-size: 18px;
+  }
+
+  .af-toast-title {
+    font-size: 14px;
+  }
+
+  .af-toast-message {
+    font-size: 12.5px;
+  }
+
+  .af-toast-close {
+    width: 30px;
+    height: 30px;
   }
 }
   </style>
