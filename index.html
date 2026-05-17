@@ -355,6 +355,108 @@
       .batch-buy-btnaf { min-width: 138px; padding: 14px 16px; }
       .batch-arrowaf { width: 52px; height: 52px; }
     }
+    .af-toast-wrap {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  z-index: 999999;
+  width: calc(100% - 28px);
+  max-width: 430px;
+  pointer-events: none;
+}
+
+.af-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 15px;
+  border-radius: 18px;
+  background: rgba(15, 23, 42, 0.96);
+  color: #ffffff;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  opacity: 0;
+  transform: translateY(18px) scale(0.96);
+  animation: afToastIn 0.25s ease forwards;
+  pointer-events: auto;
+}
+
+.af-toast-icon {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 17px;
+  font-weight: 950;
+}
+
+.af-toast-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.af-toast-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 950;
+  letter-spacing: -0.01em;
+}
+
+.af-toast-msg {
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.af-toast-close {
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+}
+
+.af-toast-success .af-toast-icon {
+  background: rgba(34, 197, 94, 0.18);
+  color: #86efac;
+}
+
+.af-toast-error .af-toast-icon {
+  background: rgba(239, 68, 68, 0.18);
+  color: #fca5a5;
+}
+
+.af-toast-info .af-toast-icon {
+  background: rgba(59, 130, 246, 0.18);
+  color: #93c5fd;
+}
+
+.af-toast-warning .af-toast-icon {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fcd34d;
+}
+
+@keyframes afToastIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes afToastOut {
+  to {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+}
   </style>
 </head>
 
@@ -419,6 +521,8 @@
           <p id="batchFullDetailsaf"></p>
         </div>
       </div>
+      
+      <div id="afToastWrap" class="af-toast-wrap"></div>
     </div>
   </section>
 
@@ -706,7 +810,7 @@
 
     function buySelectedBatchaf() {
       if (!afSelectedBatch) { alert("Please select a batch first."); return; }
-      if (isBatchEnrolledaf(afSelectedBatch.courseSlug)) { alert("You are already enrolled in this batch."); return; }
+      if (isBatchEnrolledaf(afSelectedBatch.courseSlug)) { showAfToast("You are already enrolled in this batch.", "success", "Already Enrolled"); return; }
       const btn = afBatchEl("batchDetailBuyBtnaf");
       startBatchPaymentaf(afSelectedBatch, btn);
     }
@@ -715,10 +819,10 @@
       const student = getCurrentStudentaf();
 
       if (!student.id) {
-        alert("Please login in AcademeForge app first, then open Batches.");
+       showAfToast("Please login in AcademeForge app first, then open Batches.", "warning", "Login Required");
         return;
       }
-      if (!batch.courseId) { alert("Course ID missing for this batch."); return; }
+      if (!batch.courseId) { showAfToast("Course ID missing for this batch.", "error", "Course Error"); return; }
       if (typeof Razorpay === "undefined") { alert("Razorpay checkout script not loaded."); return; }
       if (!RAZORPAY_KEY_ID || RAZORPAY_KEY_ID === "YOUR_RAZORPAY_KEY_ID") { alert("Razorpay Key ID is not added yet."); return; }
 
@@ -750,7 +854,7 @@
               if (btn) btn.textContent = "Adding Access...";
               await grantBatchAccessaf(batch, response);
               await loadEnrolledBatchSlugsaf();
-              alert("Payment successful! Batch access added.");
+              showAfToast("Your batch access has been added successfully.", "success", "Payment Successful");
               renderBatchesaf(afBatches);
               backToBatchListaf();
             } catch (err) {
@@ -762,7 +866,7 @@
           modal: {
             ondismiss: function() {
               if (btn) { btn.disabled = false; btn.textContent = "Buy Now"; }
-              alert("Payment cancelled.");
+              showAfToast("Payment cancelled.", "warning", "Payment Cancelled");
             }
           }
         };
@@ -772,7 +876,7 @@
           console.error("Razorpay failed:", response);
           let message = "Payment failed. Please try again.";
           if (response && response.error && response.error.description) message = response.error.description;
-          alert(message);
+          showAfToast(message, "error", "Payment Failed");
           if (btn) { btn.disabled = false; btn.textContent = "Buy Now"; }
         });
         rzp.open();
@@ -839,6 +943,51 @@
     document.addEventListener("DOMContentLoaded", function() {
       openBatchSectionaf();
     });
+    function showAfToast(message, type = "info", title = "") {
+  const wrap = document.getElementById("afToastWrap");
+  if (!wrap) return;
+
+  const icons = {
+    success: "✓",
+    error: "!",
+    warning: "!",
+    info: "i"
+  };
+
+  const titles = {
+    success: "Success",
+    error: "Something went wrong",
+    warning: "Notice",
+    info: "Info"
+  };
+
+  wrap.innerHTML = "";
+
+  const toast = document.createElement("div");
+  toast.className = `af-toast af-toast-${type}`;
+
+  toast.innerHTML = `
+    <div class="af-toast-icon">${icons[type] || icons.info}</div>
+    <div class="af-toast-content">
+      <p class="af-toast-title">${title || titles[type] || "Info"}</p>
+      <p class="af-toast-msg">${message}</p>
+    </div>
+    <button class="af-toast-close" type="button" aria-label="Close">×</button>
+  `;
+
+  wrap.appendChild(toast);
+
+  const closeToast = () => {
+    toast.style.animation = "afToastOut 0.22s ease forwards";
+    setTimeout(() => {
+      if (toast && toast.parentNode) toast.parentNode.removeChild(toast);
+    }, 220);
+  };
+
+  toast.querySelector(".af-toast-close").addEventListener("click", closeToast);
+
+  setTimeout(closeToast, 2600);
+}
   </script>
 </body>
 </html>
