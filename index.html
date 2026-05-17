@@ -443,76 +443,154 @@
       "freelancing": "d03e8115-0a0d-4d61-b633-d4bf946eaada"
     };
 
-    const afBatches = [
-      {
-        id: "video-editing",
-        courseSlug: "video-editing",
-        courseId: afCourseIdBySlug["video-editing"],
-        image: "Course 1.jpeg",
-        category: "Target",
-        language: "HINGLISH",
-        title: "Video & Media Editing Mastery",
-        subtitle: "Learn editing, storytelling, reels, shorts, and professional content creation.",
-        status: "Ongoing",
-        startText: "Started recently",
-        price: afBatchPrice,
-        oldPrice: afBatchOldPrice,
-        details: "A practical batch for learners who want to build strong video editing skills for reels, shorts, YouTube content, social media creatives, and professional digital projects.",
-        learn: ["Timeline editing and clean workflow", "Reels, shorts, and social media video structure", "Transitions, captions, audio sync, and color correction", "Content planning and storytelling basics", "Project-based editing practice"],
-        facilities: ["Chapter-wise learning", "Lecture and notes support", "Practice-based tasks", "Future certificate support", "Batch access after successful purchase"]
-      },
-      {
-        id: "graphic-design",
-        courseSlug: "graphic-design",
-        courseId: afCourseIdBySlug["graphic-design"],
-        image: "Course 2.jpeg",
-        category: "Target",
-        language: "HINGLISH",
-        title: "Creative & Graphic Design Mastery",
-        subtitle: "Design posters, thumbnails, banners, brand creatives, and visual content.",
-        status: "Ongoing",
-        startText: "Started recently",
-        price: afBatchPrice,
-        oldPrice: afBatchOldPrice,
-        details: "A creative batch focused on design fundamentals, social media creatives, thumbnails, posters, brand layouts, typography, and portfolio-ready visual design practice.",
-        learn: ["Design principles and layout basics", "Poster, banner, and thumbnail design", "Typography, color balance, and spacing", "Brand-style social media creatives", "Portfolio-focused design practice"],
-        facilities: ["Design practice tasks", "Creative assignments", "Notes for quick revision", "Portfolio guidance", "Future project review"]
-      },
-      {
-        id: "ai-coding",
-        courseSlug: "ai-coding",
-        courseId: afCourseIdBySlug["ai-coding"],
-        image: "Course 3.jpeg",
-        category: "Target",
-        language: "HINGLISH",
-        title: "AI Coding & Logic Foundation",
-        subtitle: "Build coding logic, AI basics, prompts, and beginner-friendly programming thinking.",
-        status: "Ongoing",
-        startText: "Started recently",
-        price: afBatchPrice,
-        oldPrice: afBatchOldPrice,
-        details: "A beginner-friendly batch designed to build programming thinking, logic, AI-assisted coding workflow, problem solving, and project structure from the ground level.",
-        learn: ["Logic building and problem solving", "Programming basics for beginners", "AI-assisted coding workflow", "Prompt thinking for coding tasks", "Mini project planning and structure"],
-        facilities: ["Beginner-friendly explanations", "Practice questions", "Chapter-wise notes", "Mini project ideas", "Future coding dashboard support"]
-      },
-      {
-        id: "freelancing",
-        courseSlug: "freelancing",
-        courseId: afCourseIdBySlug["freelancing"],
-        image: "Course 4.jpeg",
-        category: "Target",
-        language: "HINGLISH",
-        title: "Freelancing & Monetization Roadmap",
-        subtitle: "Understand digital earning, freelancing basics, client work, and skill monetization.",
-        status: "Ongoing",
-        startText: "Started recently",
-        price: afBatchPrice,
-        oldPrice: afBatchOldPrice,
-        details: "A practical batch for students who want to understand freelancing basics, profile building, client communication, service packaging, pricing, and online earning discipline.",
-        learn: ["Freelancing basics and service selection", "Profile and portfolio building", "Client communication fundamentals", "Pricing and delivery discipline", "Online earning mindset and roadmap"],
-        facilities: ["Freelancing roadmap", "Profile guidance", "Notes and examples", "Practical task ideas", "Future mentorship support"]
-      }
-    ];
+   
+  const afBatches = [
+  {
+    id: "video-editing",
+    courseSlug: "video-editing",
+    image: "Course 1.jpeg",
+    category: "Target",
+    language: "HINGLISH",
+    title: "Video & Media Editing Mastery",
+    subtitle: "Learn editing, storytelling, reels, shorts, and professional content creation.",
+    status: "Ongoing",
+    startText: "Started recently",
+    price: afBatchPrice,
+    oldPrice: afBatchOldPrice,
+    details:
+      "A practical batch for learners who want to build strong video editing skills for reels, shorts, YouTube content, social media creatives, and professional digital projects.",
+    learn: [
+      "Timeline editing and clean workflow",
+      "Reels, shorts, and social media video structure",
+      "Transitions, captions, audio sync, and color correction",
+      "Content planning and storytelling basics",
+      "Project-based editing practice"
+    ],
+    facilities: [
+      "Chapter-wise learning",
+      "Lecture and notes support",
+      "Practice-based tasks",
+      "Future certificate support",
+      "Batch access after successful purchase"
+    ]
+  },
+  {
+    id: "graphic-design",
+    courseSlug: "graphic-design",
+    image: "Course 2.jpeg",
+    category: "Target",
+    language: "HINGLISH",
+    title: "Creative & Graphic Design Mastery",
+    subtitle: "Design posters, thumbnails, banners, brand creatives, and visual content.",
+    status: "Ongoing",
+    startText: "Started recently",
+    price: afBatchPrice,
+    oldPrice: afBatchOldPrice,
+    details:
+      "A creative batch focused on design fundamentals, social media creatives, thumbnails, posters, brand layouts, typography, and portfolio-ready visual design practice.",
+    learn: [
+      "Design principles and layout basics",
+      "Poster, banner, and thumbnail design",
+      "Typography, color balance, and spacing",
+      "Brand-style social media creatives",
+      "Portfolio-focused design practice"
+    ],
+    facilities: [
+      "Design practice tasks",
+      "Creative assignments",
+      "Notes for quick revision",
+      "Portfolio guidance",
+      "Future project review"
+    ]
+  },
+  {
+    id: "ai-coding",
+    courseSlug: "ai-coding",
+    image: "Course 3.jpeg",
+    category: "Target",
+    language: "HINGLISH",
+    title: "AI Coding & Logic Foundation",
+    subtitle: "Build coding logic, AI basics, prompts, and beginner-friendly programming thinking.",
+    status: "Ongoing",
+    startText: "Started recently",
+    price: afBatchPrice,
+    oldPrice: afBatchOldPrice,
+    details:
+      "A beginner-friendly batch designed to build programming thinking, logic, AI-assisted coding workflow, problem solving, and project structure from the ground level.",
+    learn: [
+      "Logic building and problem solving",
+      "Programming basics for beginners",
+      "AI-assisted coding workflow",
+      "Prompt thinking for coding tasks",
+      "Mini project planning and structure"
+    ],
+    facilities: [
+      "Beginner-friendly explanations",
+      "Practice questions",
+      "Chapter-wise notes",
+      "Mini project ideas",
+      "Future coding dashboard support"
+    ]
+  },
+  {
+    id: "freelancing",
+    courseSlug: "freelancing",
+    image: "Course 4.jpeg",
+    category: "Target",
+    language: "HINGLISH",
+    title: "Freelancing & Monetization Roadmap",
+    subtitle: "Understand digital earning, freelancing basics, client work, and skill monetization.",
+    status: "Ongoing",
+    startText: "Started recently",
+    price: afBatchPrice,
+    oldPrice: afBatchOldPrice,
+    details:
+      "A practical batch for students who want to understand freelancing basics, profile building, client communication, service packaging, pricing, and online earning discipline.",
+    learn: [
+      "Freelancing basics and service selection",
+      "Profile and portfolio building",
+      "Client communication fundamentals",
+      "Pricing and delivery discipline",
+      "Online earning mindset and roadmap"
+    ],
+    facilities: [
+      "Freelancing roadmap",
+      "Profile guidance",
+      "Notes and examples",
+      "Practical task ideas",
+      "Future mentorship support"
+    ]
+  },
+  {
+    id: "ai-prompt-engineering",
+    courseSlug: "ai-prompt-engineering",
+    image: "Course 5.jpeg",
+    category: "Target",
+    language: "HINGLISH",
+    title: "AI & Prompt Engineering",
+    subtitle: "Master AI tools, prompt structure, productivity workflows, and practical automation thinking.",
+    status: "Ongoing",
+    startText: "Started recently",
+    price: afBatchPrice,
+    oldPrice: afBatchOldPrice,
+    details:
+      "A modern AI-focused batch covering prompt engineering, AI tool usage, structured prompting, productivity workflows, content generation, research support, and practical AI implementation for students and creators.",
+    learn: [
+      "Prompt engineering fundamentals",
+      "AI tools for study, content, and productivity",
+      "Structured prompts for better output",
+      "Research, writing, and automation workflows",
+      "Practical AI use cases for real projects"
+    ],
+    facilities: [
+      "Prompt templates and examples",
+      "Practice-based AI tasks",
+      "Chapter-wise notes",
+      "Real workflow demonstrations",
+      "Future AI project support"
+    ]
+  }
+];
 
     function afBatchEl(id) { return document.getElementById(id); }
 
